@@ -21,7 +21,7 @@ source $BIN_DIR/utils
 bpwatch start libffi_install
 
 # If a package using cffi exists within requirements, use vendored libffi.
-if (pip-grep -s requirements.txt cairo bcrypt cffi cryptography django[bcrypt] Django[bcrypt] PyNaCl pyOpenSSL PyOpenSSL requests[security] misaka &> /dev/null) then
+if (pip-grep -s requirements.txt cairocffi bcrypt cffi cryptography django[bcrypt] Django[bcrypt] PyNaCl pyOpenSSL PyOpenSSL requests[security] misaka &> /dev/null) then
 
   if [ -d ".heroku/vendor/lib/libffi-3.1" ]; then
     export LIBFFI=$(pwd)/vendor
