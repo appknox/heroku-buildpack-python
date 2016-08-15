@@ -25,6 +25,11 @@ case $(ulimit -u) in
   export DYNO_RAM=6656
   export WEB_CONCURRENCY=${WEB_CONCURRENCY:-11}
   ;;
+  
+# Apknox dyno
+60284)
+  export DYNO_RAM=6656
+  export WEB_CONCURRENCY=${WEB_CONCURRENCY:-11}
 
 esac
 
