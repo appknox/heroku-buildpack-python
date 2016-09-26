@@ -27,8 +27,17 @@ bpwatch start collectstatic  # metrics collection
 if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ] && [ "$DJANGO_INSTALLED" ]; then
     set +e
 
+    puts-cmd "python $MANAGE_FILE bower install"
+    python $MANAGE_FILE bower install
+    puts-cmd "python $MANAGE_FILE bower update"
+    python $MANAGE_FILE bower update
+    puts-cmd "python $MANAGE_FILE compress"
+    python $MANAGE_FILE compress
+    puts-cmd "python $MANAGE_FILE migrate"
+    python $MANAGE_FILE migrate
+    puts-cmd "python $MANAGE_FILE seed_db"
+    python $MANAGE_FILE seed_db
     puts-cmd "python $MANAGE_FILE collectstatic --noinput"
-
     # Run collectstatic, cleanup some of the noisy output.
     python $MANAGE_FILE collectstatic --noinput --traceback 2>&1 | sed '/^Post-processed/d;/^Copying/d;/^$/d' | indent
     COLLECTSTATIC_STATUS="${PIPESTATUS[0]}"
