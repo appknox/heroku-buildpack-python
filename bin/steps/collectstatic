@@ -19,11 +19,12 @@ MANAGE_FILE=${MANAGE_FILE:-fakepath}
 set +e
 puts-cmd "python $MANAGE_FILE migrate"
 python $MANAGE_FILE migrate
-puts-cmd "python $MANAGE_FILE seed_db"
-python $MANAGE_FILE seed_db
+
 puts-cmd "python $MANAGE_FILE collectstatic --noinput"
 # Run collectstatic, cleanup some of the noisy output.
 python $MANAGE_FILE collectstatic --noinput --traceback 2>&1 | sed '/^Post-processed/d;/^Copying/d;/^$/d' | indent
-COLLECTSTATIC_STATUS="${PIPESTATUS[0]}"
+
+puts-cmd "python $MANAGE_FILE seed_db"
+python $MANAGE_FILE seed_db
 
 set -e
