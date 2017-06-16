@@ -31,10 +31,6 @@ puts-warn() {
   echo " !     $@"
 }
 
-# Buildpack Commands.
-puts-cmd() {
-  echo "     $ $@"
-}
 
 # Usage: $ set-env key value
 set-env() {
@@ -107,4 +103,3 @@ sub-env() {
 
   )
 }
-

@@ -17,17 +17,17 @@ MANAGE_FILE=${MANAGE_FILE:-fakepath}
 
 
 set +e
-puts-cmd "python $MANAGE_FILE migrate"
+echo "python $MANAGE_FILE migrate"
 python $MANAGE_FILE migrate
 
-puts-cmd "python $MANAGE_FILE collectstatic --noinput"
+echo "python $MANAGE_FILE collectstatic --noinput -v 0"
 # Run collectstatic, cleanup some of the noisy output.
 python $MANAGE_FILE collectstatic --noinput --traceback -v 0 2>&1 | sed '/^Post-processed/d;/^Copying/d;/^$/d' | indent
 
-puts-cmd "python $MANAGE_FILE seed_db"
+echo "python $MANAGE_FILE seed_db"
 python $MANAGE_FILE seed_db
 
-puts-cmd "python $MANAGE_FILE db_backup"
+echo "python $MANAGE_FILE db_backup"
 python $MANAGE_FILE db_backup
 
 set -e
