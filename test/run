@@ -1,8 +1,27 @@
 #!/usr/bin/env bash
 
+
+testPipenv() {
+  compile "pipenv"
+  assertCapturedSuccess
+}
+
+testPipenvVersion() {
+  compile "pipenv-version"
+  assertCaptured "3.6.0"
+  assertCapturedSuccess
+}
+
 testNoRequirements() {
   compile "no-requirements"
   assertCapturedError
+}
+
+
+testNLTK() {
+  compile "nltk"
+  assertCaptured "wordnet"
+  assertCapturedSuccess
 }
 
 
@@ -25,6 +44,12 @@ testPsycopg2() {
   assertCapturedSuccess
 }
 
+testPylibmc() {
+  compile "pylibmc"
+  assertCaptured "pylibmc"
+  assertCapturedSuccess
+}
+
 testPython2() {
   compile "python2"
   assertCaptured "python-2.7.13"
@@ -37,6 +62,16 @@ testPython3() {
   assertCapturedSuccess
 }
 
+testSmartRequirements() {
+  local cache_dir="$(mktmpdir)"
+  compile "requirements-standard" "$cache_dir"
+  assertFile "requests" ".heroku/python/requirements-declared.txt"
+  assertCapturedSuccess
+  compile "psycopg2" "$cache_dir"
+  assertCaptured "Uninstalling requests"
+  assertFile "psycopg2" ".heroku/python/requirements-declared.txt"
+  assertCapturedSuccess
+}
 
 
 
