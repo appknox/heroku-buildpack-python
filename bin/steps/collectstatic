@@ -62,8 +62,9 @@ if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ] && [ "$DJANGO_INSTALL
     # Custom Appknox Commands
     echo "python $MANAGE_FILE seed_db"
     python $MANAGE_FILE seed_db
-    echo "python $MANAGE_FILE db_backup"
-    python $MANAGE_FILE db_backup
+
+	# echo "python $MANAGE_FILE db_backup"
+    # python $MANAGE_FILE db_backup
 
     echo
 fi
