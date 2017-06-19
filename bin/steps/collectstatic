@@ -26,6 +26,9 @@ sp-grep -s django && DJANGO_INSTALLED=1
 if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ] && [ "$DJANGO_INSTALLED" ]; then
     set +e
 
+    puts-step "python $MANAGE_FILE migrate"
+    python $MANAGE_FILE migrate
+
     puts-step "$ python $MANAGE_FILE collectstatic --noinput"
 
     # Run collectstatic, cleanup some of the noisy output.
@@ -63,8 +66,8 @@ if [ ! "$DISABLE_COLLECTSTATIC" ] && [ -f "$MANAGE_FILE" ] && [ "$DJANGO_INSTALL
     echo "python $MANAGE_FILE seed_db"
     python $MANAGE_FILE seed_db
 
-	# echo "python $MANAGE_FILE db_backup"
-    # python $MANAGE_FILE db_backup
+	echo "python $MANAGE_FILE db_backup"
+    python $MANAGE_FILE db_backup
 
     echo
 fi
